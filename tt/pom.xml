@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.oddlabs</groupId>
+        <artifactId>tribaltrouble</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>tt</artifactId>
+
+    <properties>
+    </properties>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>textures/pixelperfect/gui.png</exclude>
+                </excludes>
+            </resource>
+        </resources>
+
+        <plugins>
+            <!--<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>generate-textures-pixelperfect</id>
+                        <goals><goal>run</goal></goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <tasks>
+
+                            </tasks>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>-->
+
+            <!-- Iterator -->
+            <!--<plugin>
+                <groupId>com.soebes.maven.plugins</groupId>
+                <artifactId>iterator-maven-plugin</artifactId>
+                <version>0.5.1</version>
+                <executions>
+                    <execution>
+                        <id>generate-textures-pixelperfect</id>
+                        <goals><goal>iterator</goal></goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <folder>src/main/resources/textures/pixelperfect</folder>
+                            <pluginExecutors>
+                                <pluginExecutor>
+                                    <plugin>
+                                        <groupId>com.soebes.maven.plugins</groupId>
+                                        <artifactId>echo-maven-plugin</artifactId>
+                                        <version>0.5.0</version>
+                                    </plugin>
+                                    <goal>echo</goal>
+                                    <configuration>
+                                        <echos>
+                                            &lt;!&ndash;suppress UnresolvedMavenProperty &ndash;&gt;
+                                            <echo>Converting: @item@</echo>
+                                        </echos>
+                                    </configuration>
+                                </pluginExecutor>
+                                <pluginExecutor>
+                                    <plugin>
+                                        <groupId>org.codehaus.mojo</groupId>
+                                        <artifactId>exec-maven-plugin</artifactId>
+                                        <version>3.1.0</version>
+                                    </plugin>
+                                    <goal>java</goal>
+                                    <configuration>
+                                        <mainClass>com.oddlabs.imageutil.Convert</mainClass>
+                                        <arguments>
+                                            &lt;!&ndash;suppress UnresolvedMavenProperty &ndash;&gt;
+                                            <argument>@item@</argument>
+                                            <argument>-flip</argument>
+                                            <argument>-format</argument>
+                                            <argument>image</argument>
+                                            <argument>${project.build.outputDirectory}/textures/gui/gui</argument>
+                                        </arguments>
+                                    </configuration>
+                                </pluginExecutor>
+                            </pluginExecutors>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>-->
+
+            <!--<plugin>
+                <groupId>com.soebes.maven.plugins</groupId>
+                <artifactId>echo-maven-plugin</artifactId>
+                <version>0.5.0</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>echo</goal>
+                        </goals>
+                        <configuration>
+                            <echos>
+                                <echo>Test: ${project.resources[0].directory}${file.separator}textures${file.separator}pixelperfect</echo>
+                            </echos>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>-->
+
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>generate-textures</id>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <mainClass>com.oddlabs.imageutil.Convert</mainClass>
+                            <arguments>
+                                <!--suppress UnresolvedMavenProperty -->
+                                <argument>${project.resources[0].directory}/textures/pixelperfect/gui.png</argument>
+                                <argument>-flip</argument>
+                                <argument>-format</argument>
+                                <argument>image</argument>
+                                <argument>${project.build.outputDirectory}/textures/gui/gui</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.oddlabs</groupId>
+            <artifactId>common-tools</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.oddlabs</groupId>
+            <artifactId>tools</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jcraft</groupId>
+            <artifactId>jorbis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.memo33</groupId>
+            <artifactId>jsquish</artifactId>
+        </dependency>
+    </dependencies>
+</project>
