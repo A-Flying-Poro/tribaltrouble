@@ -31,11 +31,10 @@ public strictfp class RegistrationClient {
 
 	private String potential_key;
 
-	private boolean registered_offline;
+	private final boolean registered_offline = true;
 	private SignedObject signed_registration_key;
 	private RegistrationInfo registration_info;
 	
-	private RegistrationHttpClient http_client;
 	private RegistrationListener registration_listener;
 
 	protected RegistrationClient(TaskThread task_thread) {
@@ -95,7 +94,6 @@ public strictfp class RegistrationClient {
 	}
 
 	private final void offlineSucceeded() {
-		registered_offline = true;
 		if (registration_listener != null)
 			registration_listener.registrationCompleted();
 	}
@@ -105,19 +103,6 @@ public strictfp class RegistrationClient {
 	}
 
 	public final void register(boolean online_registering) {
-		if (online_registering || client_type == CLIENT_TYPE_ONLINE || client_type == CLIENT_TYPE_FOREIGN) {
-			parameters.parameters.put("key", potential_key);
-			http_client = RegistrationHttpClient.register(task_thread, parameters, new RegistrationListener() {
-				public final void registrationCompleted() {
-					loadRegistrationFileDeterministic();
-				}
-
-				public final void registrationFailed(int reason, Exception e) {
-					if (registration_listener != null)
-						registration_listener.registrationFailed(HTTP_EXCEPTION, e);
-				}
-			}, registration_file);
-		}
 	}
 
 	private final boolean offlineCheck() {
@@ -136,10 +121,6 @@ public strictfp class RegistrationClient {
 	}
 	
 	public final void cancelRegistration() {
-		if (http_client != null) {
-			http_client.close();
-			http_client = null;
-		}
 	}
 
 	public boolean isRegistered() {

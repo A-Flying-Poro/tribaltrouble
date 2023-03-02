@@ -4,12 +4,8 @@ import com.oddlabs.event.Deterministic;
 import com.oddlabs.http.HttpRequestParameters;
 import com.oddlabs.matchmaking.Game;
 import com.oddlabs.net.NetworkSelector;
-import com.oddlabs.net.TaskThread;
 import com.oddlabs.net.TimeManager;
-import com.oddlabs.regclient.ReflexiveRegistrationClient;
 import com.oddlabs.regclient.RegistrationClient;
-import com.oddlabs.regclient.TotalgamingRegistrationClient;
-import com.oddlabs.regclient.TrymediaRegistrationClient;
 import com.oddlabs.tt.Main;
 import com.oddlabs.tt.animation.AnimationManager;
 import com.oddlabs.tt.animation.TimerAnimation;
@@ -347,27 +343,6 @@ System.out.println("last_event_log_path = " + last_event_log_path);
 		} catch (LWJGLException e) {
 			// Let it propagate
 			throw new RuntimeException(e);
-		}
-		TaskThread task_thread = network.getTaskThread();
-		if (Settings.getSettings().affiliate_id.equals("reflexive")) {
-System.out.println("affiliate_id equals reflexive");
-			registration_client = new ReflexiveRegistrationClient(task_thread, 526, "21658", "Tribal Trouble", "29.95");
-		} else if (Settings.getSettings().affiliate_id.equals("totalgaming")) {
-System.out.println("affiliate_id equals totalgaming");
-			registration_client = new TotalgamingRegistrationClient(task_thread, registration_file, request_parameters);
-		} else if (Settings.getSettings().affiliate_id.equals("garagegames")) {
-System.out.println("affiliate_id equals garagegames");
-			registration_client = new RegistrationClient(task_thread, registration_file, request_parameters, RegistrationClient.CLIENT_TYPE_FOREIGN);
-		} else if (Settings.getSettings().affiliate_id.equals("arcadetown") || !Settings.getSettings().online) {
-System.out.println("affiliate_id equals arcadetown");
-			registration_client = new RegistrationClient(task_thread, registration_file, request_parameters, RegistrationClient.CLIENT_TYPE_OFFLINE);
-			registration_client.setKey(Settings.getSettings().reg_key);
-		} else if (Settings.getSettings().affiliate_id.equals("trymedia")) {
-System.out.println("affiliate_id equals trymedia");
-			registration_client = new TrymediaRegistrationClient(task_thread, registration_file, request_parameters, RegistrationClient.CLIENT_TYPE_OFFLINE);
-			Settings.getSettings().reg_key = registration_client.getPotentialKey();
-		} else {
-			registration_client = new RegistrationClient(task_thread, registration_file, request_parameters, RegistrationClient.CLIENT_TYPE_ONLINE);
 		}
 		if (!settings.inDeveloperMode() && !deterministic.isPlayback())
 			deleteOldLogs(last_event_log_dir, event_log_dir, event_logs_dir);
