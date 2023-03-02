@@ -13,64 +13,122 @@
     <artifactId>tt</artifactId>
 
     <properties>
+        <build.font.atlasLocation>${project.build.directory}/generated-resources/font</build.font.atlasLocation>
     </properties>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </pluginRepository>
+    </pluginRepositories>
 
     <build>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
                 <excludes>
-                    <exclude>textures/pixelperfect/gui.png</exclude>
+                    <exclude>geometry/**</exclude>
+                    <exclude>textures/pixelperfect/**</exclude>
+                    <exclude>textures/gui/**</exclude>
+                    <exclude>textures/pointer/**</exclude>
+                    <exclude>textures/effects/**</exclude>
+                    <exclude>textures/models/**</exclude>
+                    <exclude>textures/teamdecals/**</exclude>
                 </excludes>
             </resource>
         </resources>
 
         <plugins>
-            <!--<plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
                 <version>3.1.0</version>
                 <executions>
                     <execution>
-                        <id>generate-textures-pixelperfect</id>
-                        <goals><goal>run</goal></goals>
+                        <id>generate-geometry</id>
+                        <goals><goal>java</goal></goals>
                         <phase>generate-resources</phase>
                         <configuration>
-                            <tasks>
-
-                            </tasks>
+                            <mainClass>com.oddlabs.converter.ConvertToBinary</mainClass>
+                            <arguments>
+                                <argument>geometry.xml</argument>
+                                <!--suppress UnresolvedMavenProperty -->
+                                <argument>${project.resources[0].directory}/geometry</argument>
+                                <argument>${project.build.outputDirectory}/geometry</argument>
+                            </arguments>
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>-->
+            </plugin>
 
-            <!-- Iterator -->
-            <!--<plugin>
-                <groupId>com.soebes.maven.plugins</groupId>
+            <plugin>
+                <groupId>com.github.A-Flying-Poro</groupId>
                 <artifactId>iterator-maven-plugin</artifactId>
-                <version>0.5.1</version>
+                <version>0.5.4</version>
                 <executions>
+                    <!-- Font Atlasing (ttf to png) -->
                     <execution>
-                        <id>generate-textures-pixelperfect</id>
+                        <id>generate-font-atlas</id>
                         <goals><goal>iterator</goal></goals>
                         <phase>generate-resources</phase>
                         <configuration>
-                            <folder>src/main/resources/textures/pixelperfect</folder>
+                            <itemsWithProperties>
+                                <itemWithProperty>
+                                    <name>Tahoma</name>
+                                    <properties>
+                                        <fontSize>13</fontSize>
+                                        <numChars>32000</numChars>
+                                    </properties>
+                                </itemWithProperty>
+                                <itemWithProperty>
+                                    <name>Impact</name>
+                                    <properties>
+                                        <fontSize>24</fontSize>
+                                        <numChars>384</numChars>
+                                    </properties>
+                                </itemWithProperty>
+                            </itemsWithProperties>
+
                             <pluginExecutors>
                                 <pluginExecutor>
                                     <plugin>
-                                        <groupId>com.soebes.maven.plugins</groupId>
-                                        <artifactId>echo-maven-plugin</artifactId>
-                                        <version>0.5.0</version>
+                                        <groupId>org.codehaus.mojo</groupId>
+                                        <artifactId>exec-maven-plugin</artifactId>
+                                        <version>3.1.0</version>
                                     </plugin>
-                                    <goal>echo</goal>
+                                    <goal>java</goal>
                                     <configuration>
-                                        <echos>
-                                            &lt;!&ndash;suppress UnresolvedMavenProperty &ndash;&gt;
-                                            <echo>Converting: @item@</echo>
-                                        </echos>
+                                        <mainClass>com.oddlabs.fontutil.FontRenderer</mainClass>
+                                        <arguments>
+                                            <!--suppress UnresolvedMavenProperty -->
+                                            <argument>${item}</argument>
+                                            <!--suppress UnresolvedMavenProperty -->
+                                            <argument>${fontSize}</argument>
+                                            <argument>1024</argument>
+                                            <!--suppress UnresolvedMavenProperty -->
+                                            <argument>${numChars}</argument>
+                                            <!--suppress UnresolvedMavenProperty -->
+                                            <argument>${project.resources[0].directory}/static/font</argument>
+                                            <argument>${build.font.atlasLocation}</argument>
+                                            <argument>/textures/font</argument>
+                                        </arguments>
                                     </configuration>
                                 </pluginExecutor>
+                            </pluginExecutors>
+                        </configuration>
+                    </execution>
+
+                    <!-- Font Atlas Compression (png to dxtn) -->
+                    <execution>
+                        <id>generate-font-compression</id>
+                        <goals><goal>iterator</goal></goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <folder>${build.font.atlasLocation}</folder>
+                            <iterateFiles>true</iterateFiles>
+
+                            <pluginExecutors>
                                 <pluginExecutor>
                                     <plugin>
                                         <groupId>org.codehaus.mojo</groupId>
@@ -81,62 +139,229 @@
                                     <configuration>
                                         <mainClass>com.oddlabs.imageutil.Convert</mainClass>
                                         <arguments>
-                                            &lt;!&ndash;suppress UnresolvedMavenProperty &ndash;&gt;
-                                            <argument>@item@</argument>
+                                            <!--suppress UnresolvedMavenProperty -->
+                                            <argument>${build.font.atlasLocation}/${item}</argument>
                                             <argument>-flip</argument>
                                             <argument>-format</argument>
-                                            <argument>image</argument>
-                                            <argument>${project.build.outputDirectory}/textures/gui/gui</argument>
+                                            <argument>dxtn</argument>
+                                            <!--suppress UnresolvedMavenProperty -->
+                                            <argument>${project.build.outputDirectory}/textures/font/${item.fileName}</argument>
                                         </arguments>
                                     </configuration>
                                 </pluginExecutor>
                             </pluginExecutors>
                         </configuration>
                     </execution>
-                </executions>
-            </plugin>-->
 
-            <!--<plugin>
-                <groupId>com.soebes.maven.plugins</groupId>
-                <artifactId>echo-maven-plugin</artifactId>
-                <version>0.5.0</version>
-                <executions>
+                    <!-- PixelPerfect -->
                     <execution>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>echo</goal>
-                        </goals>
-                        <configuration>
-                            <echos>
-                                <echo>Test: ${project.resources[0].directory}${file.separator}textures${file.separator}pixelperfect</echo>
-                            </echos>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>-->
-
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.1.0</version>
-                <executions>
-                    <execution>
-                        <id>generate-textures</id>
-                        <goals>
-                            <goal>java</goal>
-                        </goals>
+                        <id>generate-textures-pixelperfect</id>
+                        <goals><goal>iterator</goal></goals>
                         <phase>generate-resources</phase>
                         <configuration>
-                            <mainClass>com.oddlabs.imageutil.Convert</mainClass>
-                            <arguments>
-                                <!--suppress UnresolvedMavenProperty -->
-                                <argument>${project.resources[0].directory}/textures/pixelperfect/gui.png</argument>
-                                <argument>-flip</argument>
-                                <argument>-format</argument>
-                                <argument>image</argument>
-                                <argument>${project.build.outputDirectory}/textures/gui/gui</argument>
-                            </arguments>
+                            <folder>src/main/resources/textures/pixelperfect</folder>
+                            <iterateFiles>true</iterateFiles>
+
+                            <pluginExecutors>
+                                <pluginExecutor>
+                                    <plugin>
+                                        <groupId>org.codehaus.mojo</groupId>
+                                        <artifactId>exec-maven-plugin</artifactId>
+                                        <version>3.1.0</version>
+                                    </plugin>
+                                    <goal>java</goal>
+                                    <configuration>
+                                        <mainClass>com.oddlabs.imageutil.Convert</mainClass>
+                                        <arguments>
+                                            <!--suppress UnresolvedMavenProperty -->
+                                            <argument>${project.resources[0].directory}/textures/pixelperfect/${item}</argument>
+                                            <argument>-flip</argument>
+                                            <argument>-format</argument>
+                                            <argument>image</argument>
+                                            <!--suppress UnresolvedMavenProperty -->
+                                            <argument>${project.build.outputDirectory}/textures/gui/${item.fileName}</argument>
+                                        </arguments>
+                                    </configuration>
+                                </pluginExecutor>
+                            </pluginExecutors>
+                        </configuration>
+                    </execution>
+
+                    <!-- GUI -->
+                    <execution>
+                        <id>generate-textures-gui</id>
+                        <goals><goal>iterator</goal></goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <folder>src/main/resources/textures/gui</folder>
+                            <iterateFiles>true</iterateFiles>
+
+                            <pluginExecutors>
+                                <pluginExecutor>
+                                    <plugin>
+                                        <groupId>org.codehaus.mojo</groupId>
+                                        <artifactId>exec-maven-plugin</artifactId>
+                                        <version>3.1.0</version>
+                                    </plugin>
+                                    <goal>java</goal>
+                                    <configuration>
+                                        <mainClass>com.oddlabs.imageutil.Convert</mainClass>
+                                        <arguments>
+                                            <!--suppress UnresolvedMavenProperty -->
+                                            <argument>${project.resources[0].directory}/textures/gui/${item}</argument>
+                                            <argument>-flip</argument>
+                                            <argument>-format</argument>
+                                            <argument>dxtn</argument>
+                                            <!--suppress UnresolvedMavenProperty -->
+                                            <argument>${project.build.outputDirectory}/textures/gui/${item.fileName}</argument>
+                                        </arguments>
+                                    </configuration>
+                                </pluginExecutor>
+                            </pluginExecutors>
+                        </configuration>
+                    </execution>
+
+                    <!-- Pointer -->
+                    <execution>
+                        <id>generate-textures-pointer</id>
+                        <goals><goal>iterator</goal></goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <folder>src/main/resources/textures/pointer</folder>
+                            <iterateFiles>true</iterateFiles>
+
+                            <pluginExecutors>
+                                <pluginExecutor>
+                                    <plugin>
+                                        <groupId>org.codehaus.mojo</groupId>
+                                        <artifactId>exec-maven-plugin</artifactId>
+                                        <version>3.1.0</version>
+                                    </plugin>
+                                    <goal>java</goal>
+                                    <configuration>
+                                        <mainClass>com.oddlabs.imageutil.Convert</mainClass>
+                                        <arguments>
+                                            <!--suppress UnresolvedMavenProperty -->
+                                            <argument>${project.resources[0].directory}/textures/pointer/${item}</argument>
+                                            <argument>-flip</argument>
+                                            <argument>-format</argument>
+                                            <argument>image</argument>
+                                            <!--suppress UnresolvedMavenProperty -->
+                                            <argument>${project.build.outputDirectory}/textures/gui/${item.fileName}</argument>
+                                        </arguments>
+                                    </configuration>
+                                </pluginExecutor>
+                            </pluginExecutors>
+                        </configuration>
+                    </execution>
+
+                    <!-- Effects -->
+                    <execution>
+                        <id>generate-textures-effects</id>
+                        <goals><goal>iterator</goal></goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <folder>src/main/resources/textures/effects</folder>
+                            <iterateFiles>true</iterateFiles>
+
+                            <pluginExecutors>
+                                <pluginExecutor>
+                                    <plugin>
+                                        <groupId>org.codehaus.mojo</groupId>
+                                        <artifactId>exec-maven-plugin</artifactId>
+                                        <version>3.1.0</version>
+                                    </plugin>
+                                    <goal>java</goal>
+                                    <configuration>
+                                        <mainClass>com.oddlabs.imageutil.Convert</mainClass>
+                                        <arguments>
+                                            <!--suppress UnresolvedMavenProperty -->
+                                            <argument>${project.resources[0].directory}/textures/effects/${item}</argument>
+                                            <argument>-flip</argument>
+                                            <argument>-mipmaps</argument>
+                                            <argument>-format</argument>
+                                            <argument>dxtn</argument>
+                                            <!--suppress UnresolvedMavenProperty -->
+                                            <argument>${project.build.outputDirectory}/textures/effects/${item.fileName}</argument>
+                                        </arguments>
+                                    </configuration>
+                                </pluginExecutor>
+                            </pluginExecutors>
+                        </configuration>
+                    </execution>
+
+                    <!-- Model -->
+                    <execution>
+                        <id>generate-textures-model</id>
+                        <goals><goal>iterator</goal></goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <folder>src/main/resources/textures/models</folder>
+                            <iterateFiles>true</iterateFiles>
+
+                            <pluginExecutors>
+                                <pluginExecutor>
+                                    <plugin>
+                                        <groupId>org.codehaus.mojo</groupId>
+                                        <artifactId>exec-maven-plugin</artifactId>
+                                        <version>3.1.0</version>
+                                    </plugin>
+                                    <goal>java</goal>
+                                    <configuration>
+                                        <mainClass>com.oddlabs.imageutil.Convert</mainClass>
+                                        <arguments>
+                                            <!--suppress UnresolvedMavenProperty -->
+                                            <argument>${project.resources[0].directory}/textures/models/${item}</argument>
+                                            <argument>-flip</argument>
+                                            <argument>-gamma</argument>
+                                            <argument>0.45454545454545453</argument>
+                                            <argument>-mipmaps</argument>
+                                            <argument>-gamma</argument>
+                                            <argument>2.2</argument>
+                                            <argument>-format</argument>
+                                            <argument>dxtn</argument>
+                                            <!--suppress UnresolvedMavenProperty -->
+                                            <argument>${project.build.outputDirectory}/textures/models/${item.fileName}</argument>
+                                        </arguments>
+                                    </configuration>
+                                </pluginExecutor>
+                            </pluginExecutors>
+                        </configuration>
+                    </execution>
+
+                    <!-- Team Decal -->
+                    <execution>
+                        <id>generate-textures-teamdecal</id>
+                        <goals><goal>iterator</goal></goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <folder>src/main/resources/textures/teamdecals</folder>
+                            <iterateFiles>true</iterateFiles>
+
+                            <pluginExecutors>
+                                <pluginExecutor>
+                                    <plugin>
+                                        <groupId>org.codehaus.mojo</groupId>
+                                        <artifactId>exec-maven-plugin</artifactId>
+                                        <version>3.1.0</version>
+                                    </plugin>
+                                    <goal>java</goal>
+                                    <configuration>
+                                        <mainClass>com.oddlabs.imageutil.Convert</mainClass>
+                                        <arguments>
+                                            <!--suppress UnresolvedMavenProperty -->
+                                            <argument>${project.resources[0].directory}/textures/teamdecals/${item}</argument>
+                                            <argument>-half</argument>
+                                            <argument>-flip</argument>
+                                            <argument>-mipmaps</argument>
+                                            <argument>-format</argument>
+                                            <argument>dxtn</argument>
+                                            <!--suppress UnresolvedMavenProperty -->
+                                            <argument>${project.build.outputDirectory}/textures/models/${item.fileName}</argument>
+                                        </arguments>
+                                    </configuration>
+                                </pluginExecutor>
+                            </pluginExecutors>
                         </configuration>
                     </execution>
                 </executions>

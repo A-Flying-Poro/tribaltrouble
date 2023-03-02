@@ -293,7 +293,7 @@ public final strictfp class GUIRoot extends GUIObject implements Updatable {
 
 		switch (event.getKeyCode()) {
 			case Keyboard.KEY_U:
-//				new AudioPlayer(0f, 0f, 0f, (Audio)Resources.findResource(new AudioFile("/sfx/hit1.ogg")), AudioPlayer.AUDIO_RANK_NOTIFICATION, AudioPlayer.AUDIO_DISTANCE_NOTIFICATION, 1f, 1f, 2f, false, true);
+//				new AudioPlayer(0f, 0f, 0f, (Audio)Resources.findResource(new AudioFile("/static/sfx/hit1.ogg")), AudioPlayer.AUDIO_RANK_NOTIFICATION, AudioPlayer.AUDIO_DISTANCE_NOTIFICATION, 1f, 1f, 2f, false, true);
 				Renderer.getRenderer().startMovieRecording();
 				break;
 			case Keyboard.KEY_W:

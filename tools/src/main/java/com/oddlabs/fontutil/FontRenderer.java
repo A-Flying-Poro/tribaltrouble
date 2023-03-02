@@ -12,7 +12,11 @@ import java.awt.font.GlyphVector;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
+import java.util.Optional;
 
 public final strictfp class FontRenderer {
 	private final static int GLYPH_X_BORDER = 4;
@@ -37,8 +41,22 @@ public final strictfp class FontRenderer {
 	public FontRenderer(String src_font_name, int font_size, int max_image_size, int max_chars, String font_info_dir, String font_tex_dir, String font_tex_classpath) throws Exception {
 		System.out.println("Converting first " + max_chars + " chars of " + src_font_name + " size " + font_size);
 		String dest_font_name = src_font_name.toLowerCase();
-		InputStream font_is = Utils.makeURL("/" + dest_font_name + ".ttf").openStream();
-		Font src_font = Font.createFont(Font.TRUETYPE_FONT, font_is).deriveFont((float)font_size);
+
+		Font sourceFont;
+		try (InputStream sourceFontStream = Utils.tryMakeURL("/" + dest_font_name + ".ttf").openStream()) {
+			sourceFont = Font.createFont(Font.TRUETYPE_FONT, sourceFontStream).deriveFont((float)font_size);
+		} catch (IOException e) {
+			final Font[] installedFonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts();
+			sourceFont = Arrays.stream(installedFonts)
+					.filter(font -> font.getFamily().equalsIgnoreCase(src_font_name))
+					.findFirst()
+					.map(font -> font.deriveFont((float) font_size))
+					.orElseThrow(() -> {
+						FileNotFoundException notFoundException = new FileNotFoundException("Font family " + src_font_name + " not found in system installed fonts.");
+						notFoundException.addSuppressed(e);
+						return notFoundException;
+					});
+		}
 
 		char[] chars = new char[max_chars];
 		for (int i = 0; i < max_chars; i++) {
@@ -48,11 +66,11 @@ public final strictfp class FontRenderer {
 		// calculate space width
 		BufferedImage image = new BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR);
 		Graphics2D g2d = (Graphics2D)image.getGraphics();
-		g2d.setFont(src_font);
+		g2d.setFont(sourceFont);
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		FontRenderContext frc = g2d.getFontRenderContext();
 		char[] current_char = new char[] {'m', ' ', 'm'};
-		GlyphVector gv = src_font.createGlyphVector(frc, current_char);
+		GlyphVector gv = sourceFont.createGlyphVector(frc, current_char);
 
 		Shape glyph_shape0 = gv.getGlyphOutline(0);
 		Rectangle2D glyph_bounds0 = glyph_shape0.getBounds2D();
@@ -71,7 +89,7 @@ public final strictfp class FontRenderer {
 		int image_height = 0;
 		int[] heights = null;
 		while (image_width > image_height) {
-			heights = calculateImageHeight(src_font, image_width, space_width, chars);
+			heights = calculateImageHeight(sourceFont, image_width, space_width, chars);
 			image_height = heights[0];
 			int area = image_width*image_height;
 			if (area <= min_area) {
@@ -86,8 +104,8 @@ public final strictfp class FontRenderer {
 		System.out.println("optimal width*height: " + best_width + "*" + best_height);
 		int max_glyph_height = heights[1];
 		int max_baseline_height = heights[2];
-		Channel white_alpha = drawFont(src_font, font_tex_classpath, font_info_dir, dest_font_name, font_size, max_glyph_height, max_baseline_height, best_width, best_height, space_width, chars, true);
-		Channel shadow = drawFont(src_font, font_tex_classpath, font_info_dir, dest_font_name, font_size, max_glyph_height, max_baseline_height, best_width, best_height, space_width, chars, false);
+		Channel white_alpha = drawFont(sourceFont, font_tex_classpath, font_info_dir, dest_font_name, font_size, max_glyph_height, max_baseline_height, best_width, best_height, space_width, chars, true);
+		Channel shadow = drawFont(sourceFont, font_tex_classpath, font_info_dir, dest_font_name, font_size, max_glyph_height, max_baseline_height, best_width, best_height, space_width, chars, false);
 
 		Channel black = new Channel(white_alpha.getWidth(), white_alpha.getHeight()).fill(0f);
 		Channel white = new Channel(white_alpha.getWidth(), white_alpha.getHeight()).fill(1f);

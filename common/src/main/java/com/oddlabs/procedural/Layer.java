@@ -106,13 +106,19 @@ public final strictfp class Layer {
 	public final void saveAsPNG(String filename) {
 		saveAsPNG(new File(filename + ".png"));
 	}
-	
+
+	@SuppressWarnings("ResultOfMethodCallIgnored")
 	public final void saveAsPNG(File file) {
-		BufferedImage image = convertToImage();
+		System.out.println("Saving to " + file.getPath());
 		try {
-			FileOutputStream fos = new FileOutputStream(file);
+			file.getParentFile().mkdirs();
+			file.createNewFile();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		BufferedImage image = convertToImage();
+		try (FileOutputStream fos = new FileOutputStream(file)) {
 			ImageIO.write(image, "PNG", fos);
-			fos.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

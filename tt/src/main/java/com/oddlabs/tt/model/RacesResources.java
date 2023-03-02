@@ -256,74 +256,74 @@ public final strictfp class RacesResources {
 					GL11.GL_CLAMP,
 					GL11.GL_CLAMP));
 		
-		Audio death_peon_sound = (Audio)Resources.findResource(new AudioFile("/sfx/death_peon.ogg"));
-		Audio death_viking1_sound = (Audio)Resources.findResource(new AudioFile("/sfx/death_viking_warrior1.ogg"));
-		Audio death_viking2_sound = (Audio)Resources.findResource(new AudioFile("/sfx/death_viking_warrior2.ogg"));
-		Audio death_native1_sound = (Audio)Resources.findResource(new AudioFile("/sfx/death_native_warrior1.ogg"));
-		Audio death_native2_sound = (Audio)Resources.findResource(new AudioFile("/sfx/death_native_warrior2.ogg"));
+		Audio death_peon_sound = (Audio)Resources.findResource(new AudioFile("/static/sfx/death_peon.ogg"));
+		Audio death_viking1_sound = (Audio)Resources.findResource(new AudioFile("/static/sfx/death_viking_warrior1.ogg"));
+		Audio death_viking2_sound = (Audio)Resources.findResource(new AudioFile("/static/sfx/death_viking_warrior2.ogg"));
+		Audio death_native1_sound = (Audio)Resources.findResource(new AudioFile("/static/sfx/death_native_warrior1.ogg"));
+		Audio death_native2_sound = (Audio)Resources.findResource(new AudioFile("/static/sfx/death_native_warrior2.ogg"));
 		
-		Audio axe_throw_sound = (Audio)Resources.findResource(new AudioFile("/sfx/weapon_axe.ogg"));
-		Audio spear_throw_sound = (Audio)Resources.findResource(new AudioFile("/sfx/weapon_spear.ogg"));
+		Audio axe_throw_sound = (Audio)Resources.findResource(new AudioFile("/static/sfx/weapon_axe.ogg"));
+		Audio spear_throw_sound = (Audio)Resources.findResource(new AudioFile("/static/sfx/weapon_spear.ogg"));
 
 		tree_fall_sound = new Audio[2];
-		tree_fall_sound[AbstractTreeGroup.TREE_INDEX] = (Audio)Resources.findResource(new AudioFile("/sfx/felling_tree.ogg"));
-		tree_fall_sound[AbstractTreeGroup.PALMTREE_INDEX] = (Audio)Resources.findResource(new AudioFile("/sfx/felling_palmtree.ogg"));
+		tree_fall_sound[AbstractTreeGroup.TREE_INDEX] = (Audio)Resources.findResource(new AudioFile("/static/sfx/felling_tree.ogg"));
+		tree_fall_sound[AbstractTreeGroup.PALMTREE_INDEX] = (Audio)Resources.findResource(new AudioFile("/static/sfx/felling_palmtree.ogg"));
 		
 		ProgressForm.progress(1f/num_progress);
 		
 		building_hit_sound = new Audio[]{
-			(Audio)Resources.findResource(new AudioFile("/sfx/impact_wood1.ogg")),
-			(Audio)Resources.findResource(new AudioFile("/sfx/impact_wood2.ogg")),
-			(Audio)Resources.findResource(new AudioFile("/sfx/impact_wood3.ogg")),
-			(Audio)Resources.findResource(new AudioFile("/sfx/impact_wood4.ogg"))
+			(Audio)Resources.findResource(new AudioFile("/static/sfx/impact_wood1.ogg")),
+			(Audio)Resources.findResource(new AudioFile("/static/sfx/impact_wood2.ogg")),
+			(Audio)Resources.findResource(new AudioFile("/static/sfx/impact_wood3.ogg")),
+			(Audio)Resources.findResource(new AudioFile("/static/sfx/impact_wood4.ogg"))
 		};
 		
-		gas_sound = (Audio)Resources.findResource(new AudioFile("/sfx/gas.ogg"));
-		bubbling_sound = (Audio)Resources.findResource(new AudioFile("/sfx/bubbling.ogg"));
-		lightning_sound = (Audio)Resources.findResource(new AudioFile("/sfx/flash.ogg"));
-		cloud_sound = (Audio)Resources.findResource(new AudioFile("/sfx/crackling_cloud.ogg"));
+		gas_sound = (Audio)Resources.findResource(new AudioFile("/static/sfx/gas.ogg"));
+		bubbling_sound = (Audio)Resources.findResource(new AudioFile("/static/sfx/bubbling.ogg"));
+		lightning_sound = (Audio)Resources.findResource(new AudioFile("/static/sfx/flash.ogg"));
+		cloud_sound = (Audio)Resources.findResource(new AudioFile("/static/sfx/crackling_cloud.ogg"));
 
-		armory_sound = (Audio)Resources.findResource(new AudioFile("/sfx/armory.ogg"));
+		armory_sound = (Audio)Resources.findResource(new AudioFile("/static/sfx/armory.ogg"));
 		
-		building_collapse_sound = (Audio)Resources.findResource(new AudioFile("/sfx/building_crash.ogg"));
+		building_collapse_sound = (Audio)Resources.findResource(new AudioFile("/static/sfx/building_crash.ogg"));
 
 		stun_sound = new Audio[]{
-			(Audio)Resources.findResource(new AudioFile("/sfx/lur_stun1.ogg")),
-			(Audio)Resources.findResource(new AudioFile("/sfx/lur_stun2.ogg")),
-			(Audio)Resources.findResource(new AudioFile("/sfx/lur_stun3.ogg"))
+			(Audio)Resources.findResource(new AudioFile("/static/sfx/lur_stun1.ogg")),
+			(Audio)Resources.findResource(new AudioFile("/static/sfx/lur_stun2.ogg")),
+			(Audio)Resources.findResource(new AudioFile("/static/sfx/lur_stun3.ogg"))
 		};
 
 		blast_lur_sound = new Audio[]{
-			(Audio)Resources.findResource(new AudioFile("/sfx/lur_blast1.ogg")),
-			(Audio)Resources.findResource(new AudioFile("/sfx/lur_blast2.ogg")),
-			(Audio)Resources.findResource(new AudioFile("/sfx/lur_blast3.ogg"))
+			(Audio)Resources.findResource(new AudioFile("/static/sfx/lur_blast1.ogg")),
+			(Audio)Resources.findResource(new AudioFile("/static/sfx/lur_blast2.ogg")),
+			(Audio)Resources.findResource(new AudioFile("/static/sfx/lur_blast3.ogg"))
 		};
-		blast_rumble_sound = (Audio)Resources.findResource(new AudioFile("/sfx/rumble.ogg"));
-		blast_blast_sound = (Audio)Resources.findResource(new AudioFile("/sfx/lurblast.ogg"));
+		blast_rumble_sound = (Audio)Resources.findResource(new AudioFile("/static/sfx/rumble.ogg"));
+		blast_blast_sound = (Audio)Resources.findResource(new AudioFile("/static/sfx/lurblast.ogg"));
 		
 		Audio[] tree_cut_sound = new Audio[]{
-			(Audio)Resources.findResource(new AudioFile("/sfx/axe_cutting_wood1.ogg")),
-			(Audio)Resources.findResource(new AudioFile("/sfx/axe_cutting_wood2.ogg")),
-			(Audio)Resources.findResource(new AudioFile("/sfx/axe_cutting_wood3.ogg")),
-			(Audio)Resources.findResource(new AudioFile("/sfx/axe_cutting_wood4.ogg")),
-			(Audio)Resources.findResource(new AudioFile("/sfx/axe_cutting_wood5.ogg")),
-			(Audio)Resources.findResource(new AudioFile("/sfx/axe_cutting_wood6.ogg"))
+			(Audio)Resources.findResource(new AudioFile("/static/sfx/axe_cutting_wood1.ogg")),
+			(Audio)Resources.findResource(new AudioFile("/static/sfx/axe_cutting_wood2.ogg")),
+			(Audio)Resources.findResource(new AudioFile("/static/sfx/axe_cutting_wood3.ogg")),
+			(Audio)Resources.findResource(new AudioFile("/static/sfx/axe_cutting_wood4.ogg")),
+			(Audio)Resources.findResource(new AudioFile("/static/sfx/axe_cutting_wood5.ogg")),
+			(Audio)Resources.findResource(new AudioFile("/static/sfx/axe_cutting_wood6.ogg"))
 		};
 		
 		Audio[] rock_cut_sound = new Audio[]{
-			(Audio)Resources.findResource(new AudioFile("/sfx/axe_cutting_stone1.ogg")),
-			(Audio)Resources.findResource(new AudioFile("/sfx/axe_cutting_stone2.ogg")),
-			(Audio)Resources.findResource(new AudioFile("/sfx/axe_cutting_stone3.ogg")),
-			(Audio)Resources.findResource(new AudioFile("/sfx/axe_cutting_stone4.ogg")),
-			(Audio)Resources.findResource(new AudioFile("/sfx/axe_cutting_stone5.ogg"))
+			(Audio)Resources.findResource(new AudioFile("/static/sfx/axe_cutting_stone1.ogg")),
+			(Audio)Resources.findResource(new AudioFile("/static/sfx/axe_cutting_stone2.ogg")),
+			(Audio)Resources.findResource(new AudioFile("/static/sfx/axe_cutting_stone3.ogg")),
+			(Audio)Resources.findResource(new AudioFile("/static/sfx/axe_cutting_stone4.ogg")),
+			(Audio)Resources.findResource(new AudioFile("/static/sfx/axe_cutting_stone5.ogg"))
 		};
 		
 		Audio[] meat_cut_sound = new Audio[]{
-			(Audio)Resources.findResource(new AudioFile("/sfx/impact_meat1.ogg")),
-			(Audio)Resources.findResource(new AudioFile("/sfx/impact_meat2.ogg")),
-			(Audio)Resources.findResource(new AudioFile("/sfx/impact_meat3.ogg")),
-			(Audio)Resources.findResource(new AudioFile("/sfx/impact_meat4.ogg")),
-			(Audio)Resources.findResource(new AudioFile("/sfx/impact_meat5.ogg"))
+			(Audio)Resources.findResource(new AudioFile("/static/sfx/impact_meat1.ogg")),
+			(Audio)Resources.findResource(new AudioFile("/static/sfx/impact_meat2.ogg")),
+			(Audio)Resources.findResource(new AudioFile("/static/sfx/impact_meat3.ogg")),
+			(Audio)Resources.findResource(new AudioFile("/static/sfx/impact_meat4.ogg")),
+			(Audio)Resources.findResource(new AudioFile("/static/sfx/impact_meat5.ogg"))
 		};
 		
 		ProgressForm.progress(1f/num_progress);
@@ -473,11 +473,11 @@ public final strictfp class RacesResources {
 		ProgressForm.progress(1f/num_progress);
 
 		Audio[] unit_hit_sounds = new Audio[]{
-			(Audio)Resources.findResource(new AudioFile("/sfx/impact_meat1.ogg")),
-			(Audio)Resources.findResource(new AudioFile("/sfx/impact_meat2.ogg")),
-			(Audio)Resources.findResource(new AudioFile("/sfx/impact_meat3.ogg")),
-			(Audio)Resources.findResource(new AudioFile("/sfx/impact_meat4.ogg")),
-			(Audio)Resources.findResource(new AudioFile("/sfx/impact_meat5.ogg"))
+			(Audio)Resources.findResource(new AudioFile("/static/sfx/impact_meat1.ogg")),
+			(Audio)Resources.findResource(new AudioFile("/static/sfx/impact_meat2.ogg")),
+			(Audio)Resources.findResource(new AudioFile("/static/sfx/impact_meat3.ogg")),
+			(Audio)Resources.findResource(new AudioFile("/static/sfx/impact_meat4.ogg")),
+			(Audio)Resources.findResource(new AudioFile("/static/sfx/impact_meat5.ogg"))
 		};
 		WeaponFactory viking_warrior_rock_weapon = new ThrowingFactory(RockAxeWeapon.class, 0.5f, THROW_RANGE, 29f/58f,
 																	   queues.register(viking_warrior_axe, Race.UNIT_WARRIOR_ROCK),
@@ -505,16 +505,16 @@ public final strictfp class RacesResources {
 																	   unit_hit_sounds);
 		
 		Audio[] native_chieftain_hit_sounds = new Audio[]{
-			(Audio)Resources.findResource(new AudioFile("/sfx/hit3.ogg")),
-			(Audio)Resources.findResource(new AudioFile("/sfx/hit4.ogg")),
-			(Audio)Resources.findResource(new AudioFile("/sfx/hit5.ogg")),
-			(Audio)Resources.findResource(new AudioFile("/sfx/hit6.ogg"))
+			(Audio)Resources.findResource(new AudioFile("/static/sfx/hit3.ogg")),
+			(Audio)Resources.findResource(new AudioFile("/static/sfx/hit4.ogg")),
+			(Audio)Resources.findResource(new AudioFile("/static/sfx/hit5.ogg")),
+			(Audio)Resources.findResource(new AudioFile("/static/sfx/hit6.ogg"))
 		};
 		Audio[] viking_chieftain_hit_sounds = new Audio[]{
-			(Audio)Resources.findResource(new AudioFile("/sfx/hit1.ogg")),
-			(Audio)Resources.findResource(new AudioFile("/sfx/hit2.ogg")),
-			(Audio)Resources.findResource(new AudioFile("/sfx/hit6.ogg")),
-			(Audio)Resources.findResource(new AudioFile("/sfx/hit7.ogg"))
+			(Audio)Resources.findResource(new AudioFile("/static/sfx/hit1.ogg")),
+			(Audio)Resources.findResource(new AudioFile("/static/sfx/hit2.ogg")),
+			(Audio)Resources.findResource(new AudioFile("/static/sfx/hit6.ogg")),
+			(Audio)Resources.findResource(new AudioFile("/static/sfx/hit7.ogg"))
 		};
 
 		ProgressForm.progress(1f/num_progress);
@@ -722,11 +722,11 @@ public final strictfp class RacesResources {
 							Globals.NO_MIPMAP_CUTOFF,
 							true, true, true, false)),
 				icons.getNativeIcons(),
-				(Audio)Resources.findResource(new AudioFile("/sfx/attacknotify_native.ogg")),
-				(Audio)Resources.findResource(new AudioFile("/sfx/buildingnotify_native.ogg")),
+				(Audio)Resources.findResource(new AudioFile("/static/sfx/attacknotify_native.ogg")),
+				(Audio)Resources.findResource(new AudioFile("/static/sfx/buildingnotify_native.ogg")),
 				native_magic,
 				new NativeChieftainAI(),
-				"/music/native.ogg");
+				"/static/music/native.ogg");
 		Race vikings_race = new Race(viking_quarters_template,
 				viking_armory_template,
 				viking_tower_template,
@@ -739,11 +739,11 @@ public final strictfp class RacesResources {
 							Globals.NO_MIPMAP_CUTOFF,
 							true, true, true, false)),
 				icons.getVikingIcons(),
-				(Audio)Resources.findResource(new AudioFile("/sfx/attacknotify_viking.ogg")),
-				(Audio)Resources.findResource(new AudioFile("/sfx/buildingnotify_viking.ogg")),
+				(Audio)Resources.findResource(new AudioFile("/static/sfx/attacknotify_viking.ogg")),
+				(Audio)Resources.findResource(new AudioFile("/static/sfx/buildingnotify_viking.ogg")),
 				viking_magic,
 				new VikingChieftainAI(),
-				"/music/viking.ogg");
+				"/static/music/viking.ogg");
 		races = new Race[]{natives_race, vikings_race};
 
 		wood_fragment_sprites[0] = queues.register(new SpriteFile("/geometry/misc/wood_2.binsprite",

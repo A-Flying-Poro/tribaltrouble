@@ -234,7 +234,7 @@ public final strictfp class ConvertToBinary {
 	}
 
 	private final static void write(Object output, File file) {
-		System.err.println("Saving to " + file);
+		System.out.println("Saving to " + file);
 		FileOutputStream file_stream;
 		ObjectOutputStream obj_stream;
 

@@ -33,9 +33,9 @@ public final strictfp class AmbientAudio {
 
 	public AmbientAudio(AudioImplementation audio_implementation) {
 		this.audio_implementation = audio_implementation;
-		ambient_forest_buffer = (Audio)Resources.findResource(new AudioFile("/sfx/ambient_forest.ogg"));
-		ambient_beach_buffer = (Audio)Resources.findResource(new AudioFile("/sfx/ambient_beach.ogg"));
-		ambient_wind_buffer = (Audio)Resources.findResource(new AudioFile("/sfx/ambient_wind.ogg"));
+		ambient_forest_buffer = (Audio)Resources.findResource(new AudioFile("/static/sfx/ambient_forest.ogg"));
+		ambient_beach_buffer = (Audio)Resources.findResource(new AudioFile("/static/sfx/ambient_beach.ogg"));
+		ambient_wind_buffer = (Audio)Resources.findResource(new AudioFile("/static/sfx/ambient_wind.ogg"));
 		ambient_forest = audio_implementation.newAudio(new AudioParameters(ambient_forest_buffer, 10000f, 10000f, 10000f, AudioPlayer.AUDIO_RANK_AMBIENT, AudioPlayer.AUDIO_DISTANCE_AMBIENT, AudioPlayer.AUDIO_GAIN_AMBIENT_FOREST, AudioPlayer.AUDIO_RADIUS_AMBIENT_FOREST, 1f, true, true, false));
 		ambient_beach = audio_implementation.newAudio(new AudioParameters(ambient_beach_buffer, 10000f, 10000f, 10000f, AudioPlayer.AUDIO_RANK_AMBIENT, AudioPlayer.AUDIO_DISTANCE_AMBIENT, AudioPlayer.AUDIO_GAIN_AMBIENT_BEACH, AudioPlayer.AUDIO_RADIUS_AMBIENT_BEACH, 1f, true, true, false));
 		ambient_wind = audio_implementation.newAudio(new AudioParameters(ambient_wind_buffer, 10000f, 10000f, 10000f, AudioPlayer.AUDIO_RANK_AMBIENT, AudioPlayer.AUDIO_DISTANCE_AMBIENT, AudioPlayer.AUDIO_GAIN_AMBIENT_WIND, AudioPlayer.AUDIO_RADIUS_AMBIENT_WIND, 1f, true, true, false));

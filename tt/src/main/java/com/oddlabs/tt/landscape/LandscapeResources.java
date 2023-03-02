@@ -72,12 +72,12 @@ public final strictfp class LandscapeResources {
 		ProgressForm.progress(1f/num_progress);
 		
 		bird_idle_sound = new Audio[4];
-		bird_idle_sound[0] = (Audio)Resources.findResource(new AudioFile("/sfx/chicken_idle1.ogg"));
-		bird_idle_sound[1] = (Audio)Resources.findResource(new AudioFile("/sfx/chicken_idle2.ogg"));
-		bird_idle_sound[2] = (Audio)Resources.findResource(new AudioFile("/sfx/chicken_idle3.ogg"));
-		bird_idle_sound[3] = (Audio)Resources.findResource(new AudioFile("/sfx/chicken_idle4.ogg"));
-		bird_peck_sound = (Audio)Resources.findResource(new AudioFile("/sfx/chicken_peck.ogg"));
-		bird_death_sound = (Audio)Resources.findResource(new AudioFile("/sfx/chicken_death.ogg"));
+		bird_idle_sound[0] = (Audio)Resources.findResource(new AudioFile("/static/sfx/chicken_idle1.ogg"));
+		bird_idle_sound[1] = (Audio)Resources.findResource(new AudioFile("/static/sfx/chicken_idle2.ogg"));
+		bird_idle_sound[2] = (Audio)Resources.findResource(new AudioFile("/static/sfx/chicken_idle3.ogg"));
+		bird_idle_sound[3] = (Audio)Resources.findResource(new AudioFile("/static/sfx/chicken_idle4.ogg"));
+		bird_peck_sound = (Audio)Resources.findResource(new AudioFile("/static/sfx/chicken_peck.ogg"));
+		bird_death_sound = (Audio)Resources.findResource(new AudioFile("/static/sfx/chicken_death.ogg"));
 	}
 	
 	public static LowDetailModel[] loadTreeLowDetails() {

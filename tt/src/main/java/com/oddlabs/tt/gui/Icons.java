@@ -47,7 +47,7 @@ public strictfp class Icons {
 
 	public final static void load() {
 		if (icons == null)
-			icons = new Icons("/gui/icons.xml");
+			icons = new Icons("/static/gui/icons.xml");
 	}
 
 	public final static Icons getIcons() {

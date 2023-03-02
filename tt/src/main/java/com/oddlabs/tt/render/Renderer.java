@@ -570,7 +570,7 @@ e.printStackTrace();
 		Player local_player = world.getPlayers()[0];
 		Selection selection = new Selection(local_player);
 		UIRenderer renderer = new DefaultRenderer(new Cheat(), local_player, render_queues, generator.getTerrainType(), world_info, landscape_renderer, new Picker(manager, local_player, render_queues, landscape_renderer, selection), selection, generator);
-		setMusicPath("/music/menu.ogg", 0f);
+		setMusicPath("/static/music/menu.ogg", 0f);
 		MainMenu main_menu = new MainMenu(network, gui_root, new MenuCamera(world, manager));
 		gui_root.pushDelegate(main_menu);
 		if (!isRegistered()) {
